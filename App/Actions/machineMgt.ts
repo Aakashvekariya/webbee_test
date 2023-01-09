@@ -3,7 +3,7 @@ import { fieldTypes } from '../Constants/env';
 import { CATEGORIES } from '../Reducers/reducersType';
 
 export function addCategory() {
-  return async (dispatch, state) => {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
 
     const request = {
@@ -22,8 +22,8 @@ export function addCategory() {
   };
 }
 
-export function removeCategory(index:number) {
-  return async (dispatch, state) => {
+export function removeCategory(index: number) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempList = categoryList.filter((_, fIndex) => fIndex !== index);
     if (tempList.length === 0) {
@@ -33,8 +33,8 @@ export function removeCategory(index:number) {
   };
 }
 
-export function addNewField(index:number, type:string) {
-  return async (dispatch:any, state:any) => {
+export function addNewField(index: number, type: string) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     categoryList[index] = {
       ...categoryList[index],
@@ -52,10 +52,10 @@ export function addNewField(index:number, type:string) {
   };
 }
 
-export function removeField(categoryIndex:number, fieldIndex:number) {
-  return async (dispatch:any, state:any) => {
+export function removeField(categoryIndex: number, fieldIndex: number) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
-    const tempData = categoryList[categoryIndex].fields.filter((_, fIndex:number) => fieldIndex !== fIndex);
+    const tempData = categoryList[categoryIndex].fields.filter((_, fIndex: number) => fieldIndex !== fIndex);
 
     categoryList[categoryIndex] = {
       ...categoryList[categoryIndex],
@@ -65,8 +65,8 @@ export function removeField(categoryIndex:number, fieldIndex:number) {
     dispatch({ type: CATEGORIES, payload: [...categoryList] });
   };
 }
-export function onChangeDataType(categoryIndex:number, fieldIndex:number, type:string) {
-  return async (dispatch:any, state:any) => {
+export function onChangeDataType(categoryIndex: number, fieldIndex: number, type: string) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempData = categoryList[categoryIndex].fields.map((item, index) => {
       if (index === fieldIndex) {
@@ -84,21 +84,21 @@ export function onChangeDataType(categoryIndex:number, fieldIndex:number, type:s
   };
 }
 
-export function changeCategoryName(categoryIndex:number, categoryName:string) {
-  return async (dispatch:any, state:any) => {
+export function changeCategoryName(categoryIndex: number, categoryName: string) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     categoryList.map((item, index) => {
       if (index === categoryIndex) {
-        	item.categoryName = categoryName;
-      	}
-      	return item;
-    	});
+        item.categoryName = categoryName;
+      }
+      return item;
+    });
     dispatch({ type: CATEGORIES, payload: [...categoryList] });
   };
 }
 
-export function changeFieldName(categoryIndex:number, fieldIndex:number, fieldName:string) {
-  return async (dispatch:any, state:any) => {
+export function changeFieldName(categoryIndex: number, fieldIndex: number, fieldName: string) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempData = categoryList[categoryIndex].fields.map((item, index) => {
       if (index === fieldIndex) {
@@ -115,24 +115,23 @@ export function changeFieldName(categoryIndex:number, fieldIndex:number, fieldNa
   };
 }
 
-export function setTitle(categoryIndex:number, titleField:string) {
-  return async (dispatch:any, state:any) => {
+export function setTitle(categoryIndex: number, titleField: string) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
-    console.log('🚀 ~ file: machineMgt.ts:132 ~ setTitle ~ categoryIndex', categoryIndex);
     categoryList.map((item, index) => {
       if (index === categoryIndex) {
-        	item.titleField = titleField;
-      	}
-      	return item;
-    	});
+        item.titleField = titleField;
+      }
+      return item;
+    });
     dispatch({ type: CATEGORIES, payload: [...categoryList] });
   };
 }
 
 // Subcategory
 
-export function addSubCategory(categoryIndex:number, data:{}) {
-  return async (dispatch, state) => {
+export function addSubCategory(categoryIndex: number, data: {}) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempData = categoryList;
 
@@ -142,8 +141,8 @@ export function addSubCategory(categoryIndex:number, data:{}) {
   };
 }
 
-export function removeSubCategory(categoryIndex:number, fieldIndex:number) {
-  return async (dispatch, state) => {
+export function removeSubCategory(categoryIndex: number, fieldIndex: number) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempData = categoryList;
     tempData[categoryIndex].subCategory = tempData[categoryIndex].subCategory.filter((_, fIndex) => fIndex !== fieldIndex);
@@ -151,8 +150,8 @@ export function removeSubCategory(categoryIndex:number, fieldIndex:number) {
     dispatch({ type: CATEGORIES, payload: [...tempData] });
   };
 }
-export function changeSubFieldValue(categoryIndex:number, fieldIndex:number, data:any, field:any) {
-  return async (dispatch, state) => {
+export function changeSubFieldValue(categoryIndex: number, fieldIndex: number, data: any, field: any) {
+  return async (dispatch: any, state: any) => {
     const { categoryList } = state().machineMgt;
     const tempData = categoryList;
 
