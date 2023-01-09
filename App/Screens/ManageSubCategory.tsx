@@ -3,18 +3,9 @@ import React, { useEffect, useState } from "react";
 import { View, SafeAreaView, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addCategory,
-  addNewField,
   addSubCategory,
-  changeCategoryName,
-  changeFieldName,
   changeSubFieldValue,
-  getCategories,
-  onChangeDataType,
-  removeCategory,
-  removeField,
   removeSubCategory,
-  setTitle,
 } from "../Actions";
 import { addIcon } from "../Assets/icons";
 import ActionSheet from "../Components/ActionSheet";
@@ -27,8 +18,10 @@ import SubFieldAddComp from "./SubFieldAddComp";
 
 type OwnProps = {};
 const ManageSubCategory = (props: OwnProps) => {
-  const { categoryIndex, categoryName } = props.route.params;
+  const { categoryIndex } = props.route.params;
+
   const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
+  const categoryName = categoryListRD[categoryIndex].categoryName;
   const dispatch: any = useDispatch();
   const [categoryList, setCategoryList] = useState<[]>(categoryListRD);
 
@@ -38,6 +31,7 @@ const ManageSubCategory = (props: OwnProps) => {
 
   const fhLoadCategory = async () => {
     await AsyncStorage.setItem(CATEGORIES, JSON.stringify(categoryListRD));
+
     setCategoryList(categoryListRD[categoryIndex]);
   };
 
@@ -70,7 +64,7 @@ const ManageSubCategory = (props: OwnProps) => {
             onValueChange(data, field, index)
           }
           onRemoveSubCategory={() => onRemoveSubCategory(index)}
-          modalList={categoryList.fields}
+          modalList={categoryList}
           data={item}
         />
       </View>

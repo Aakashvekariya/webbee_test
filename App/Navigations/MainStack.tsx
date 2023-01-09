@@ -42,7 +42,7 @@ const MainStack = () => {
           {category.map((item, index) => (
             <Drawer.Screen
               key={String(index)}
-              name={String(index)}
+              name={`ManageSubCategory${index}`}
               component={ManageSubCategory}
               initialParams={{ ...item, categoryIndex: index }}
               options={{

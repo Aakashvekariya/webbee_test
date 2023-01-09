@@ -130,9 +130,11 @@ export function changeFieldName(categoryIndex:number,fieldIndex:number,fieldName
 
 export function setTitle(categoryIndex:number,titleField:string) {
   
+  
   return async (dispatch:any,state:any) => {
     
     let categoryList = state().machineMgt.categoryList
+    console.log("🚀 ~ file: machineMgt.ts:132 ~ setTitle ~ categoryIndex", categoryIndex)   
      categoryList.map((item,index) => {
        if(index===categoryIndex){
         	item.titleField=titleField

@@ -14,13 +14,14 @@ const SubFieldAddComp = ({
   onValueChange,
   onRemoveSubCategory,
 }) => {
-  const hTitle = data[modalList[0].fieldName];
+  const hTitle = data[modalList.titleField];
+  const fieldList = modalList.fields;
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.heading}>
         {hTitle === "" ? "Unnamed Field" : hTitle}
       </Text>
-      {modalList.map((item, index) => {
+      {fieldList.map((item, index) => {
         const title = item.fieldName;
         const type = item.type;
         const value = data[item.fieldName];

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, SafeAreaView, Text, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -35,10 +35,11 @@ const ManageCategory = (props: OwnProps) => {
 
   const [fillTitleData, setFillTitleData] = useState([]);
 
-  const [selectedCategoryField, setSelectedCategoryField] = useState<{
+  const selectedCategoryFieldRef = useRef<{
     categoryIndex: number;
     fieldIndex: number;
-  }>({ categoryIndex: 0, fieldIndex: 0 });
+  }>({ categoryIndex: -1, fieldIndex: -1 });
+
   const fieldTypeData = [
     {
       title: fieldTypes.text,
@@ -69,13 +70,15 @@ const ManageCategory = (props: OwnProps) => {
 
   const onSelectDataType = (type: string) => {
     setIsSelectType(false);
-    if (selectedCategoryField.fieldIndex === -1) {
-      dispatch(addNewField(selectedCategoryField.categoryIndex, type));
+    if (selectedCategoryFieldRef.current.fieldIndex === -1) {
+      dispatch(
+        addNewField(selectedCategoryFieldRef.current.categoryIndex, type)
+      );
     }
     dispatch(
       onChangeDataType(
-        selectedCategoryField.categoryIndex,
-        selectedCategoryField.fieldIndex,
+        selectedCategoryFieldRef.current.categoryIndex,
+        selectedCategoryFieldRef.current.fieldIndex,
         type
       )
     );
@@ -88,10 +91,8 @@ const ManageCategory = (props: OwnProps) => {
     dispatch(removeCategory(index));
   };
   const onAddNewField = (index: number) => {
-    setSelectedCategoryField({
-      categoryIndex: index,
-      fieldIndex: -1,
-    });
+    selectedCategoryFieldRef.current.categoryIndex = index;
+    selectedCategoryFieldRef.current.fieldIndex = -1;
     setTimeout(() => {
       setIsSelectType(true);
     }, 400);
@@ -100,10 +101,9 @@ const ManageCategory = (props: OwnProps) => {
     dispatch(removeField(categoryIndex, fieldIndex));
   };
   const onChangeTypeOpener = (categoryIndex: number, fieldIndex: number) => {
-    setSelectedCategoryField({
-      categoryIndex: categoryIndex,
-      fieldIndex: fieldIndex,
-    });
+    selectedCategoryFieldRef.current.categoryIndex = categoryIndex;
+    selectedCategoryFieldRef.current.fieldIndex = fieldIndex;
+
     setTimeout(() => {
       setIsSelectType(true);
     }, 400);
@@ -124,10 +124,7 @@ const ManageCategory = (props: OwnProps) => {
   };
 
   const onSetTitleOpener = (categoryIndex: number, titleData: []) => {
-    setSelectedCategoryField({
-      categoryIndex: categoryIndex,
-      fieldIndex: 0,
-    });
+    selectedCategoryFieldRef.current.categoryIndex = categoryIndex;
 
     let tempTitleData = titleData;
     tempTitleData = tempTitleData.map((item) => {
@@ -143,10 +140,12 @@ const ManageCategory = (props: OwnProps) => {
     setFillTitleData([...tempTitleData]);
     setTimeout(() => {
       setIsSelectTitle(true);
-    }, 400);
+    }, 300);
   };
   const onSetTitle = (titleName: string) => {
-    dispatch(setTitle(selectedCategoryField.categoryIndex, titleName));
+    dispatch(
+      setTitle(selectedCategoryFieldRef.current.categoryIndex, titleName)
+    );
     setIsSelectTitle(false);
   };
   const RightComp = () => (
