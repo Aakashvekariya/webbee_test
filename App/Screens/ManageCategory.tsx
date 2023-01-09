@@ -29,8 +29,7 @@ import { gWindowWidth } from '../Constants/fontSize';
 import { CATEGORIES } from '../Reducers/reducersType';
 import FieldAddComp from './FieldAddComp';
 
-type OwnProps = {};
-function ManageCategory(props: OwnProps) {
+function ManageCategory() {
   const categoryListRD = useSelector(
     (state: { machineMgt: any }) => state.machineMgt.categoryList,
   );

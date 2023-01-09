@@ -42,16 +42,14 @@ function ManageSubCategory(props: OwnProps) {
       fieldName: string;
     }[];
   }>({ subCategory: [], fields: [] });
-
-  useEffect(() => {
-    fhLoadCategory();
-  }, [categoryListRD]);
-
   const fhLoadCategory = async () => {
     await AsyncStorage.setItem(CATEGORIES, JSON.stringify(categoryListRD));
 
     setCategoryList(categoryListRD[categoryIndex]);
   };
+  useEffect(() => {
+    fhLoadCategory();
+  }, [categoryListRD]);
 
   const onAddNewSubCategory = () => {
     let hRequest = {};

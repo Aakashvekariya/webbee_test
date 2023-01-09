@@ -23,6 +23,12 @@ module.exports = {
       },
     ],
     'react/jsx-filename-extension': ['off'],
+    'react/function-component-definition': 0,
+    'react/require-default-props': 0,
+    'react/no-unstable-nested-components': 0,
+    'react/no-arrow-function-lifecycle': 0,
+    'react/no-unused-class-component-methods': 0,
+    'react/jsx-no-useless-fragment': 0,
   },
   settings: {
     'import/resolver': {

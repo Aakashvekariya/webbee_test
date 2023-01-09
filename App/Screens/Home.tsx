@@ -23,8 +23,7 @@ import fontSize, { gWindowWidth } from '../Constants/fontSize';
 import { CATEGORIES } from '../Reducers/reducersType';
 import SubFieldAddComp from './SubFieldAddComp';
 
-type OwnProps = {};
-function Home(props: OwnProps) {
+function Home() {
   const dispatch: any = useDispatch();
   const categoryListRD = useSelector(
     (state: { machineMgt: any }) => state.machineMgt.categoryList,
