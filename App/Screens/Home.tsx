@@ -28,7 +28,9 @@ import SubFieldAddComp from "./SubFieldAddComp";
 type OwnProps = {};
 const Home = (props: OwnProps) => {
   const dispatch: any = useDispatch();
-  const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
+  const categoryListRD = useSelector(
+    (state: { machineMgt: any }) => state.machineMgt.categoryList
+  );
   const [categoryList, setCategoryList] = useState<[]>([]);
 
   useEffect(() => {
@@ -43,15 +45,16 @@ const Home = (props: OwnProps) => {
         dispatch({ type: CATEGORIES, payload: hData });
       }
     }
-    console.log(
-      "🚀 ~ file: Home.tsx:35 ~ fhLoadCategory ~ categoryListRD",
-      categoryListRD.length
-    );
     await AsyncStorage.setItem(CATEGORIES, JSON.stringify(categoryListRD));
     setCategoryList(categoryListRD);
   };
 
-  const onAddNewSubCategory = (hCategoryList: any, categoryIndex: number) => {
+  const onAddNewSubCategory = (
+    hCategoryList: {
+      fields: { fieldName: string }[];
+    },
+    categoryIndex: number
+  ) => {
     let hRequest = {};
     hCategoryList.fields.forEach((element) => {
       hRequest = { ...hRequest, [element.fieldName]: "" };
@@ -71,7 +74,18 @@ const Home = (props: OwnProps) => {
     dispatch(changeSubFieldValue(categoryIndex, fieldIndex, data, field));
   };
 
-  const onRenderItem = ({ item, index, categoryIndex, modalList }) => {
+  type RenderProps = {
+    item: any;
+    index: number;
+    categoryIndex: number;
+    modalList: any;
+  };
+  const onRenderItem = ({
+    item,
+    index,
+    categoryIndex,
+    modalList,
+  }: RenderProps) => {
     return (
       <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
         <SubFieldAddComp
@@ -94,7 +108,7 @@ const Home = (props: OwnProps) => {
         <KeyboardAvoidScrollView
         // keyboardAvoidingViewProp={{ keyboardVerticalOffset: 150 }}
         >
-          {categoryList.map((item, index) => (
+          {categoryList.map((item: { categoryName: string }, index) => (
             <View key={String(index)}>
               <View style={styles.categoryContainer}>
                 <Text style={styles.categoryNameText}>{item.categoryName}</Text>

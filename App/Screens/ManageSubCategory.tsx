@@ -7,6 +7,7 @@ import {
   FlatList,
   Platform,
   KeyboardAvoidingView,
+  StyleSheet,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,16 +22,26 @@ import colors from "../Constants/colors";
 import { gWindowWidth } from "../Constants/fontSize";
 import { CATEGORIES } from "../Reducers/reducersType";
 import SubFieldAddComp from "./SubFieldAddComp";
-
-type OwnProps = {};
+type OwnProps = {
+  route: {
+    params: any;
+  };
+};
 const ManageSubCategory = (props: OwnProps) => {
   const { categoryIndex } = props.route.params;
 
-  const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
+  const categoryListRD = useSelector(
+    (state: { machineMgt: any }) => state.machineMgt.categoryList
+  );
   const categoryName =
     categoryListRD[categoryIndex].categoryName || "New Category";
   const dispatch: any = useDispatch();
-  const [categoryList, setCategoryList] = useState<[]>(categoryListRD);
+  const [categoryList, setCategoryList] = useState<{
+    subCategory: [];
+    fields: {
+      fieldName: string;
+    }[];
+  }>({ subCategory: [], fields: [] });
 
   useEffect(() => {
     fhLoadCategory();
@@ -63,7 +74,12 @@ const ManageSubCategory = (props: OwnProps) => {
       iconStyle={{ tintColor: colors.white }}
     />
   );
-  const onRenderItem = ({ item, index }) => {
+  type RenderItemProps = {
+    item: any;
+    index: number;
+  };
+
+  const onRenderItem = ({ item, index }: RenderItemProps) => {
     return (
       <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
         <SubFieldAddComp
@@ -79,7 +95,7 @@ const ManageSubCategory = (props: OwnProps) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={styles.rootContainer}>
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title={categoryName} RightComp={RightComp} />
       <View style={{ marginTop: 10 }} />
@@ -103,3 +119,7 @@ const ManageSubCategory = (props: OwnProps) => {
 };
 
 export default ManageSubCategory;
+
+const styles = StyleSheet.create({
+  rootContainer: { flex: 1, backgroundColor: colors.white },
+});

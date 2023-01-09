@@ -33,7 +33,9 @@ import FieldAddComp from "./FieldAddComp";
 
 type OwnProps = {};
 const ManageCategory = (props: OwnProps) => {
-  const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
+  const categoryListRD = useSelector(
+    (state: { machineMgt: any }) => state.machineMgt.categoryList
+  );
 
   const dispatch: any = useDispatch();
   const [categoryList, setCategoryList] = useState<[]>(categoryListRD);
@@ -133,7 +135,11 @@ const ManageCategory = (props: OwnProps) => {
   const onSetTitleOpener = (categoryIndex: number, titleData: []) => {
     selectedCategoryFieldRef.current.categoryIndex = categoryIndex;
 
-    let tempTitleData = titleData;
+    let tempTitleData: {
+      fieldName: string;
+      title: string;
+      onPress: () => {};
+    }[] = titleData;
     tempTitleData = tempTitleData.map((item) => {
       if (item.fieldName !== "") {
         return {

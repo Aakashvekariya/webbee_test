@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 import Button from "../Components/Button";
 import DateTimePickerComponent from "../Components/DateTimePickerComponent";
@@ -6,14 +7,24 @@ import colors from "../Constants/colors";
 import { fieldTypes } from "../Constants/env";
 import fontSize from "../Constants/fontSize";
 
-const SubFieldAddComp = ({
+type SubFieldAddCompProps = {
+  data: any;
+  modalList: any;
+  onValueChange: (text: string | number | boolean | Date, title: any) => void;
+  onRemoveSubCategory: () => void;
+};
+
+const SubFieldAddComp: FC<SubFieldAddCompProps> = ({
   data,
   modalList,
   onValueChange,
   onRemoveSubCategory,
-}) => {
+}: SubFieldAddCompProps) => {
   const hTitle = data[modalList.titleField];
-  const fieldList = modalList.fields;
+  const fieldList: {
+    fieldName: string;
+    type: string;
+  }[] = modalList.fields;
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.heading}>
