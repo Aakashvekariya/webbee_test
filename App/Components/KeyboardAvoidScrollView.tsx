@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { FC } from 'react'
-import { KeyboardAvoidingView,ViewStyle, KeyboardAvoidingViewProps, Platform, ScrollView, ScrollViewProps } from 'react-native'
+import React, { FC } from 'react';
+import {
+  KeyboardAvoidingView, ViewStyle, KeyboardAvoidingViewProps, Platform, ScrollView, ScrollViewProps,
+} from 'react-native';
+
 type KeyboardAvoidScrollView={
   children?:any,
   keyboardAvoidingViewProp?:KeyboardAvoidingViewProps,
@@ -10,7 +13,7 @@ type KeyboardAvoidScrollView={
   scrollStyle?:ViewStyle,
   scrollContentContainerStyle?:ViewStyle,
 }
-const KeyboardAvoidScrollView:FC<KeyboardAvoidScrollView>=({
+const KeyboardAvoidScrollView:FC<KeyboardAvoidScrollView> = ({
   children,
   keyboardAvoidingViewProp,
   scrollViewProp,
@@ -18,27 +21,24 @@ const KeyboardAvoidScrollView:FC<KeyboardAvoidScrollView>=({
   keyboardAvoidingContentContainerStyle,
   scrollStyle,
   scrollContentContainerStyle,
-  
-}:KeyboardAvoidScrollView)=> {
-  
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={[{flex:1},keyboardAvoidingStyle]}
-      contentContainerStyle={keyboardAvoidingContentContainerStyle}
-      {...keyboardAvoidingViewProp}
+
+}:KeyboardAvoidScrollView) => (
+  <KeyboardAvoidingView
+    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    style={[{ flex: 1 }, keyboardAvoidingStyle]}
+    contentContainerStyle={keyboardAvoidingContentContainerStyle}
+    {...keyboardAvoidingViewProp}
+  >
+    <ScrollView
+      contentContainerStyle={scrollContentContainerStyle}
+      style={scrollStyle}
+      keyboardShouldPersistTaps="always"
+      showsVerticalScrollIndicator={false}
+      bounces={false}
+      {...scrollViewProp}
     >
-      <ScrollView
-        contentContainerStyle={scrollContentContainerStyle}
-        style={scrollStyle}
-        keyboardShouldPersistTaps="always"
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-        {...scrollViewProp}
-      >
-        {children}
-      </ScrollView>
-    </KeyboardAvoidingView>
-  )
-}
-export default KeyboardAvoidScrollView
+      {children}
+    </ScrollView>
+  </KeyboardAvoidingView>
+);
+export default KeyboardAvoidScrollView;

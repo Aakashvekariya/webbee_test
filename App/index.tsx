@@ -1,13 +1,13 @@
-import React from "react";
-import { Provider } from "react-redux";
-import MainStack from "./Navigations/MainStack";
-import store from "./Utils/Store";
+import React from 'react';
+import { Provider } from 'react-redux';
+import MainStack from './Navigations/MainStack';
+import store from './Utils/Store';
 
-const Index = () => {
+function Index() {
   return (
     <Provider store={store}>
       <MainStack />
     </Provider>
   );
-};
+}
 export default Index;

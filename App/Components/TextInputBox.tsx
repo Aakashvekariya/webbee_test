@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -11,19 +11,19 @@ import {
   ImageURISource,
   ImageStyle,
   GestureResponderEvent,
-} from "react-native";
-import colors from "../Constants/colors";
+} from 'react-native';
+import colors from '../Constants/colors';
 
 const styles = StyleSheet.create({
   inputContainerStyle: {
-    flexDirection: "row",
-    overflow: "hidden",
+    flexDirection: 'row',
+    overflow: 'hidden',
     borderWidth: 1,
     borderRadius: 10,
   },
   leftIconContainerStyle: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
 
     width: 50,
   },
@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
 
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   rightIconContainerStyle: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
 
     width: 50,
   },
@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
   rightIconStyle: {
     width: 24,
     height: 24,
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
 
   fullPressStyle: {
-    height: "100%",
-    width: "100%",
-    position: "absolute",
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
   },
   titleStyle: {
     marginBottom: 2,
@@ -79,15 +79,15 @@ type TextInputBoxProps = {
   animated?: boolean;
   onChangeText?: ((event: string) => void) | undefined;
   secureTextEntry?: boolean;
-  value?: string | "";
+  value?: string | '';
   placeholder?: string;
   keyboardType?:
-    | "default"
-    | "email-address"
-    | "numeric"
-    | "phone-pad"
-    | "number-pad"
-    | "decimal-pad";
+    | 'default'
+    | 'email-address'
+    | 'numeric'
+    | 'phone-pad'
+    | 'number-pad'
+    | 'decimal-pad';
 };
 
 const TextInputBox: React.FC<TextInputBoxProps> = ({
@@ -111,56 +111,54 @@ const TextInputBox: React.FC<TextInputBoxProps> = ({
   keyboardType,
   placeholder,
   ...other
-}: TextInputBoxProps) => {
-  return (
-    <View style={containerStyle}>
-      {title && <Text style={[styles.titleStyle, titleStyle]}>{title}</Text>}
-      <View style={[styles.inputContainerStyle, inputContainerStyle]}>
-        {leftSource && (
-          <TouchableOpacity
-            onPress={onPressLeft}
-            activeOpacity={onPressLeft ? 0 : 1}
-            style={[styles.leftIconContainerStyle, leftIconContainerStyle]}
-          >
-            <Image
-              source={leftSource}
-              style={[styles.leftIconStyle, leftIconStyle]}
-              resizeMode={leftIconStyle?.resizeMode || "contain"}
-            />
-          </TouchableOpacity>
-        )}
-        <TextInput
-          style={[styles.inputStyle, inputStyle]}
-          placeholderTextColor={colors.black}
-          secureTextEntry={secureTextEntry}
-          keyboardType={keyboardType}
-          onChangeText={onChangeText}
-          value={value}
-          placeholder={placeholder}
-          {...other}
+}: TextInputBoxProps) => (
+  <View style={containerStyle}>
+    {title && <Text style={[styles.titleStyle, titleStyle]}>{title}</Text>}
+    <View style={[styles.inputContainerStyle, inputContainerStyle]}>
+      {leftSource && (
+      <TouchableOpacity
+        onPress={onPressLeft}
+        activeOpacity={onPressLeft ? 0 : 1}
+        style={[styles.leftIconContainerStyle, leftIconContainerStyle]}
+      >
+        <Image
+          source={leftSource}
+          style={[styles.leftIconStyle, leftIconStyle]}
+          resizeMode={leftIconStyle?.resizeMode || 'contain'}
         />
-        {rightSource && (
-          <TouchableOpacity
-            onPress={onPressRight}
-            activeOpacity={onPressRight ? 0 : 1}
-            style={[styles.rightIconContainerStyle, rightIconContainerStyle]}
-          >
-            <Image
-              source={rightSource}
-              style={[styles.rightIconStyle, rightIconStyle]}
-              resizeMode={rightIconStyle?.resizeMode || "contain"}
-            />
-          </TouchableOpacity>
-        )}
+      </TouchableOpacity>
+      )}
+      <TextInput
+        style={[styles.inputStyle, inputStyle]}
+        placeholderTextColor={colors.black}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        onChangeText={onChangeText}
+        value={value}
+        placeholder={placeholder}
+        {...other}
+      />
+      {rightSource && (
+      <TouchableOpacity
+        onPress={onPressRight}
+        activeOpacity={onPressRight ? 0 : 1}
+        style={[styles.rightIconContainerStyle, rightIconContainerStyle]}
+      >
+        <Image
+          source={rightSource}
+          style={[styles.rightIconStyle, rightIconStyle]}
+          resizeMode={rightIconStyle?.resizeMode || 'contain'}
+        />
+      </TouchableOpacity>
+      )}
 
-        {onFullPress && (
-          <TouchableOpacity
-            onPress={onFullPress}
-            style={styles.fullPressStyle}
-          />
-        )}
-      </View>
+      {onFullPress && (
+      <TouchableOpacity
+        onPress={onFullPress}
+        style={styles.fullPressStyle}
+      />
+      )}
     </View>
-  );
-};
+  </View>
+);
 export default TextInputBox;

@@ -1,1 +1,1 @@
-export * from './machineMgt'
+export * from './machineMgt';

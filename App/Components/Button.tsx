@@ -15,7 +15,6 @@ import {
 
 import colors from '../Constants/colors';
 
-
 import Icon from './Icon';
 
 type ButtonProps = {
@@ -42,7 +41,7 @@ type ButtonProps = {
   rightDisabled?: boolean;
   titleTextProps?: TextProps;
 };
-const Button=({
+function Button({
   title,
   titleStyle,
   width = '100%',
@@ -64,7 +63,7 @@ const Button=({
   leftDisabled,
   rightDisabled,
   titleTextProps,
-}: ButtonProps)=> {
+}: ButtonProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
@@ -76,7 +75,8 @@ const Button=({
         styles.contentContainerStyle,
         contentContainerStyle,
       ]}
-      onPress={onFullPress}>
+      onPress={onFullPress}
+    >
       <>
         {!leftComp && leftSource && leftSource !== null ? (
           <Icon
@@ -90,14 +90,14 @@ const Button=({
               styles.leftIconContainerStyle,
               leftIconContainerStyle,
             ]}
-            iconStyle={[{tintColor: colors.white}, leftIconStyle]}
+            iconStyle={[{ tintColor: colors.white }, leftIconStyle]}
             tintColor={leftTintColor}
             disabled={leftDisabled}
-            resizeMode={'cover'}
+            resizeMode="cover"
             touchableOpacityProps={undefined}
           />
         ) : (
-          !leftComp && <View style={{width: height}} />
+          !leftComp && <View style={{ width: height }} />
         )}
         {leftComp}
         {title && title !== '' && (
@@ -105,7 +105,8 @@ const Button=({
             style={[styles.titleStyle, titleStyle]}
             adjustsFontSizeToFit
             numberOfLines={1}
-            {...titleTextProps}>
+            {...titleTextProps}
+          >
             {title}
           </Text>
         )}
@@ -122,13 +123,13 @@ const Button=({
               styles.rightIconContainerStyle,
               rightIconContainerStyle,
             ]}
-            iconStyle={[{tintColor: colors.secondary}, rightIconStyle]}
-            resizeMode={'cover'}
+            iconStyle={[{ tintColor: colors.secondary }, rightIconStyle]}
+            resizeMode="cover"
             tintColor={rightTintColor}
             disabled={rightDisabled}
           />
         ) : (
-          !rightComp && <View style={{width: height}} />
+          !rightComp && <View style={{ width: height }} />
         )}
         {rightComp}
       </>
@@ -152,11 +153,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
     fontSize: 16,
-    
+
   },
   rightIconContainerStyle: {
     justifyContent: 'center',
     alignItems: 'center',
   },
 });
-export default Button
+export default Button;

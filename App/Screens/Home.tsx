@@ -1,35 +1,33 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   SafeAreaView,
   StyleSheet,
   Text,
   FlatList,
-  ScrollView,
   Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addSubCategory,
   changeSubFieldValue,
   removeSubCategory,
-} from "../Actions";
-import { addIcon } from "../Assets/icons";
-import Button from "../Components/Button";
-import Header from "../Components/Header";
-import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
-import colors from "../Constants/colors";
-import fontSize, { gWindowWidth } from "../Constants/fontSize";
-import { CATEGORIES } from "../Reducers/reducersType";
-import SubFieldAddComp from "./SubFieldAddComp";
+} from '../Actions';
+import { addIcon } from '../Assets/icons';
+import Button from '../Components/Button';
+import Header from '../Components/Header';
+import KeyboardAvoidScrollView from '../Components/KeyboardAvoidScrollView';
+import colors from '../Constants/colors';
+import fontSize, { gWindowWidth } from '../Constants/fontSize';
+import { CATEGORIES } from '../Reducers/reducersType';
+import SubFieldAddComp from './SubFieldAddComp';
 
 type OwnProps = {};
-const Home = (props: OwnProps) => {
+function Home(props: OwnProps) {
   const dispatch: any = useDispatch();
   const categoryListRD = useSelector(
-    (state: { machineMgt: any }) => state.machineMgt.categoryList
+    (state: { machineMgt: any }) => state.machineMgt.categoryList,
   );
   const [categoryList, setCategoryList] = useState<[]>([]);
 
@@ -53,11 +51,11 @@ const Home = (props: OwnProps) => {
     hCategoryList: {
       fields: { fieldName: string }[];
     },
-    categoryIndex: number
+    categoryIndex: number,
   ) => {
     let hRequest = {};
     hCategoryList.fields.forEach((element) => {
-      hRequest = { ...hRequest, [element.fieldName]: "" };
+      hRequest = { ...hRequest, [element.fieldName]: '' };
     });
     dispatch(addSubCategory(categoryIndex, hRequest));
   };
@@ -69,7 +67,7 @@ const Home = (props: OwnProps) => {
     data: any,
     field: any,
     categoryIndex: number,
-    fieldIndex: number
+    fieldIndex: number,
   ) => {
     dispatch(changeSubFieldValue(categoryIndex, fieldIndex, data, field));
   };
@@ -85,29 +83,23 @@ const Home = (props: OwnProps) => {
     index,
     categoryIndex,
     modalList,
-  }: RenderProps) => {
-    return (
-      <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
-        <SubFieldAddComp
-          onValueChange={(data: any, field: any) =>
-            onValueChange(data, field, categoryIndex, index)
-          }
-          onRemoveSubCategory={() => onRemoveSubCategory(categoryIndex, index)}
-          modalList={modalList}
-          data={item}
-        />
-      </View>
-    );
-  };
+  }: RenderProps) => (
+    <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
+      <SubFieldAddComp
+        onValueChange={(data: any, field: any) => onValueChange(data, field, categoryIndex, index)}
+        onRemoveSubCategory={() => onRemoveSubCategory(categoryIndex, index)}
+        modalList={modalList}
+        data={item}
+      />
+    </View>
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title="Dashboard" />
       <View style={{ flex: 1, marginTop: 15 }}>
-        <KeyboardAvoidScrollView
-        // keyboardAvoidingViewProp={{ keyboardVerticalOffset: 150 }}
-        >
+        <KeyboardAvoidScrollView>
           {categoryList.map((item: { categoryName: string }, index) => (
             <View key={String(index)}>
               <View style={styles.categoryContainer}>
@@ -122,18 +114,16 @@ const Home = (props: OwnProps) => {
               </View>
               <FlatList
                 data={categoryList[index].subCategory}
-                renderItem={(data) =>
-                  onRenderItem({
-                    ...data,
-                    categoryIndex: index,
-                    modalList: categoryList[index],
-                  })
-                }
+                renderItem={(data) => onRenderItem({
+                  ...data,
+                  categoryIndex: index,
+                  modalList: categoryList[index],
+                })}
                 scrollEnabled={false}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyExtractor={(_, index) => String(index)}
                 ListEmptyComponent={() => (
-                  <Text style={{ textAlign: "center" }}>
+                  <Text style={{ textAlign: 'center' }}>
                     No Items Available
                   </Text>
                 )}
@@ -146,7 +136,7 @@ const Home = (props: OwnProps) => {
       </View>
     </View>
   );
-};
+}
 
 export default Home;
 
@@ -154,14 +144,14 @@ const styles = StyleSheet.create({
   categoryContainer: {
     padding: 10,
     marginHorizontal: 10,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 1,
     marginBottom: 10,
   },
   categoryNameText: {
     fontSize: fontSize.f20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     flex: 1,
   },
 });

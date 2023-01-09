@@ -1,9 +1,9 @@
-import { Dimensions } from 'react-native'
+import { Dimensions } from 'react-native';
 
-const gScreenWidth = Dimensions.get('screen').width
-export const gScreenHeight = Dimensions.get('screen').height
-export const gWindowWidth = Dimensions.get('window').width
-export const gWindowHeight = Dimensions.get('window').height
+const gScreenWidth = Dimensions.get('screen').width;
+export const gScreenHeight = Dimensions.get('screen').height;
+export const gWindowWidth = Dimensions.get('window').width;
+export const gWindowHeight = Dimensions.get('window').height;
 export default {
   f8: gScreenWidth * 0.02,
   f9: gScreenWidth * 0.022,
@@ -28,4 +28,4 @@ export default {
   f28: gScreenWidth * 0.07,
   f29: gScreenWidth * 0.072,
   f30: gScreenWidth * 0.075,
-}
+};

@@ -1,11 +1,13 @@
-import { FC } from "react";
-import { StyleSheet, Switch, Text, View } from "react-native";
-import Button from "../Components/Button";
-import DateTimePickerComponent from "../Components/DateTimePickerComponent";
-import TextInputBox from "../Components/TextInputBox";
-import colors from "../Constants/colors";
-import { fieldTypes } from "../Constants/env";
-import fontSize from "../Constants/fontSize";
+import React, { FC } from 'react';
+import {
+  StyleSheet, Switch, Text, View,
+} from 'react-native';
+import Button from '../Components/Button';
+import DateTimePickerComponent from '../Components/DateTimePickerComponent';
+import TextInputBox from '../Components/TextInputBox';
+import colors from '../Constants/colors';
+import { fieldTypes } from '../Constants/env';
+import fontSize from '../Constants/fontSize';
 
 type SubFieldAddCompProps = {
   data: any;
@@ -28,11 +30,11 @@ const SubFieldAddComp: FC<SubFieldAddCompProps> = ({
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.heading}>
-        {hTitle === "" ? "Unnamed Field" : hTitle}
+        {hTitle === '' ? 'Unnamed Field' : hTitle}
       </Text>
-      {fieldList.map((item, index) => {
+      {fieldList.map((item) => {
         const title = item.fieldName;
-        const type = item.type;
+        const { type } = item;
         const value = data[item.fieldName];
 
         if (type === fieldTypes.number || type === fieldTypes.text) {
@@ -43,25 +45,23 @@ const SubFieldAddComp: FC<SubFieldAddCompProps> = ({
                 title={title}
                 value={value}
                 keyboardType={
-                  type === fieldTypes.text ? "default" : "number-pad"
+                  type === fieldTypes.text ? 'default' : 'number-pad'
                 }
                 onChangeText={(text) => onValueChange(text, title)}
               />
             </View>
           );
-        } else if (type === fieldTypes.checkbox) {
+        } if (type === fieldTypes.checkbox) {
           return (
             <View style={{ marginTop: 5 }}>
               <Text>{title}</Text>
               <Switch
                 value={value}
-                onValueChange={(text) =>
-                  onValueChange(value === "" ? true : !value, title)
-                }
+                onValueChange={(text) => onValueChange(value === '' ? true : !value, title)}
               />
             </View>
           );
-        } else if (type === fieldTypes.date) {
+        } if (type === fieldTypes.date) {
           return (
             <View style={{ marginTop: 5 }}>
               <Text>{title}</Text>
@@ -91,15 +91,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   fieldContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 5,
   },
   buttonWrapper: {
     height: 50,
     width: 80,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.primary,
     borderRadius: 5,
     marginHorizontal: 10,
@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
   iconContainer: {
     width: 50,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: colors.red,
     borderRadius: 5,
   },
   heading: {
     marginBottom: 15,
     fontSize: fontSize.f20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

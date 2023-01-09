@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,11 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import {closeIcon} from '../Assets/icons';
-import {commonColorUi, commonUI} from '../Assets/styles/mystyle';
+import { closeIcon } from '../Assets/icons';
+import { commonColorUi, commonUI } from '../Assets/styles/mystyle';
 import colors from '../Constants/colors';
 import Icon from './Icon';
+
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
@@ -68,35 +69,35 @@ const BottomModal: FC<BottomModalProps> = ({
   containerStyle,
   titleStyle,
   children,
-}) => {
-  return (
-    <Modal
-      visible={isVisible}
-      style={commonUI.modal.containerStyle}
-      onDismiss={() => (onDismiss ? onDismiss(false) : null)}
-      onRequestClose={() => (onDismiss ? onDismiss(false) : null)}
-      transparent>
-      <View style={[styles.containerStyle, containerStyle]}>
-        <View style={commonUI.container.flex1} />
-        {onCancel && (
-          <>
-            <View style={commonUI.height.height10} />
-            <TouchableOpacity
-              onPress={() => (onCancel ? onCancel(false) : null)}
-              style={[styles.cancelStyle, cancelStyle]}>
-              <Icon source={closeIcon} disabled />
-            </TouchableOpacity>
-          </>
+}) => (
+  <Modal
+    visible={isVisible}
+    style={commonUI.modal.containerStyle}
+    onDismiss={() => (onDismiss ? onDismiss(false) : null)}
+    onRequestClose={() => (onDismiss ? onDismiss(false) : null)}
+    transparent
+  >
+    <View style={[styles.containerStyle, containerStyle]}>
+      <View style={commonUI.container.flex1} />
+      {onCancel && (
+      <>
+        <View style={commonUI.height.height10} />
+        <TouchableOpacity
+          onPress={() => (onCancel ? onCancel(false) : null)}
+          style={[styles.cancelStyle, cancelStyle]}
+        >
+          <Icon source={closeIcon} disabled />
+        </TouchableOpacity>
+      </>
+      )}
+      <View style={[styles.itemContainer, itemContainerStyle]}>
+        {title && (
+        <Text style={[styles.titleStyle, titleStyle]}>{title}</Text>
         )}
-        <View style={[styles.itemContainer, itemContainerStyle]}>
-          {title && (
-            <Text style={[styles.titleStyle, titleStyle]}>{title}</Text>
-          )}
-          {children}
-        </View>
+        {children}
       </View>
-      <SafeAreaView style={commonColorUi.backgroundColor.white} />
-    </Modal>
-  );
-};
+    </View>
+    <SafeAreaView style={commonColorUi.backgroundColor.white} />
+  </Modal>
+);
 export default BottomModal;

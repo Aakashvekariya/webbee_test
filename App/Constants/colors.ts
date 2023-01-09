@@ -1,6 +1,5 @@
-
 const colors = {
-    transparent: 'transparent',
+  transparent: 'transparent',
   primary: '#1D94F5',
   black: '#000000',
   white: '#ffffff',
@@ -22,6 +21,6 @@ const colors = {
   lightYellow: '#FFF2D7',
   green2: '#56C288',
   lightRed: '#FF866A',
-}
+};
 
-export default colors
+export default colors;

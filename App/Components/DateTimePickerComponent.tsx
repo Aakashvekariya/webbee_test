@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, { FC, useState } from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,11 @@ import {
   TextStyle,
 } from 'react-native';
 
-import FastImage, {ImageStyle} from 'react-native-fast-image';
+import FastImage, { ImageStyle } from 'react-native-fast-image';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 
-import {calendarIcon, watchIcon} from '../Assets/icons';
+import { calendarIcon, watchIcon } from '../Assets/icons';
 
 const styles = StyleSheet.create({
   contentContainerStyle: {
@@ -76,8 +76,8 @@ const DateTimePickerComponent: FC<DateTimePickerComponentProps> = ({
         isVisible={isDateTimePicker}
         onCancel={() => setIsDateTimePicker(false)}
         mode={mode}
-        date={selectedDate ? selectedDate : selectedTime}
-        onConfirm={date => {
+        date={selectedDate || selectedTime}
+        onConfirm={(date) => {
           setIsDateTimePicker(false);
           if (getSelectedDate) {
             getSelectedDate(date);
@@ -94,7 +94,8 @@ const DateTimePickerComponent: FC<DateTimePickerComponentProps> = ({
             onPress();
           }
         }}
-        style={[styles.contentContainerStyle, contentContainerStyle]}>
+        style={[styles.contentContainerStyle, contentContainerStyle]}
+      >
         {title && (
           <View style={[styles.titleContainerStyle, titleContainerStyle]}>
             <Text style={titleStyle}>{title}</Text>

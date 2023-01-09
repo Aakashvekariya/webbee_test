@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,8 @@ import {
   ImageStyle,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import {closeIcon} from '../Assets/icons';
-import {commonUI} from '../Assets/styles/mystyle';
+import { closeIcon } from '../Assets/icons';
+import { commonUI } from '../Assets/styles/mystyle';
 import colors from '../Constants/colors';
 import fontSize from '../Constants/fontSize';
 import Icon from './Icon';
@@ -87,72 +87,71 @@ const ActionSheet: FC<ActionSheetProps> = ({
   cancelIconStyle,
   itemIconStyle,
   bottomSafeAreaStyle,
-}) => {
-  return (
-    <Modal
-      isVisible={isVisible}
-      style={commonUI.modal.containerStyle}
-      useNativeDriver
-      swipeDirection={['down']}
-      onBackdropPress={() => (onBackdropPress ? onBackdropPress(false) : null)}
-      onBackButtonPress={() =>
-        onBackdropPress ? onBackdropPress(false) : null
-      }>
-      <View style={[styles.containerStyle, containerStyle]}>
-        <View style={commonUI.container.flex1} />
-        {onCancelPress && (
-          <>
-            <View style={commonUI.height.height10} />
+}) => (
+  <Modal
+    isVisible={isVisible}
+    style={commonUI.modal.containerStyle}
+    useNativeDriver
+    swipeDirection={['down']}
+    onBackdropPress={() => (onBackdropPress ? onBackdropPress(false) : null)}
+    onBackButtonPress={() => (onBackdropPress ? onBackdropPress(false) : null)}
+  >
+    <View style={[styles.containerStyle, containerStyle]}>
+      <View style={commonUI.container.flex1} />
+      {onCancelPress && (
+      <>
+        <View style={commonUI.height.height10} />
 
-            <Icon
-              onPress={() => onCancelPress(false)}
-              source={closeIcon}
-              disabled
-              iconContainerStyle={{...styles.cancelStyle, ...cancelStyle}}
-              iconStyle={cancelIconStyle}
-            />
-          </>
-        )}
-        <View style={[styles.itemContainerStyle, itemContainerStyle]}>
-          {data.map((item: any, index: number) => (
-            <View key={String(`${index}`)}>
-              <TouchableOpacity
-                style={[styles.itemStyle, itemStyle]}
-                onPress={item.onPress}>
-                <Icon
-                  disabled
-                  source={item.icon}
-                  iconStyle={{
-                    tintColor:
+        <Icon
+          onPress={() => onCancelPress(false)}
+          source={closeIcon}
+          disabled
+          iconContainerStyle={{ ...styles.cancelStyle, ...cancelStyle }}
+          iconStyle={cancelIconStyle}
+        />
+      </>
+      )}
+      <View style={[styles.itemContainerStyle, itemContainerStyle]}>
+        {data.map((item: any, index: number) => (
+          <View key={String(`${index}`)}>
+            <TouchableOpacity
+              style={[styles.itemStyle, itemStyle]}
+              onPress={item.onPress}
+            >
+              <Icon
+                disabled
+                source={item.icon}
+                iconStyle={{
+                  tintColor:
                       item.title === selectedOption
                         ? colors.primary
                         : colors.black,
-                    ...styles.itemIconStyle,
-                    ...itemIconStyle,
-                  }}
-                />
-                <Text
-                  style={[
-                    styles.itemTextStyle,
-                    selectedOption && {
-                      color:
+                  ...styles.itemIconStyle,
+                  ...itemIconStyle,
+                }}
+              />
+              <Text
+                style={[
+                  styles.itemTextStyle,
+                  selectedOption && {
+                    color:
                         item.title === selectedOption
                           ? colors.primary
                           : colors.black,
-                    },
-                    itemTextStyle,
-                  ]}>
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-        <SafeAreaView
-          style={[styles.bottomSafeAreaStyle, bottomSafeAreaStyle]}
-        />
+                  },
+                  itemTextStyle,
+                ]}
+              >
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ))}
       </View>
-    </Modal>
-  );
-};
+      <SafeAreaView
+        style={[styles.bottomSafeAreaStyle, bottomSafeAreaStyle]}
+      />
+    </View>
+  </Modal>
+);
 export default ActionSheet;

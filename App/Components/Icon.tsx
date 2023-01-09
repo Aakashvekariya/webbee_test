@@ -24,7 +24,7 @@ type IconProps = {
   touchableOpacityProps?: TouchableOpacityProps | undefined;
 };
 
- const Icon: React.FC<IconProps> = ({
+const Icon: React.FC<IconProps> = ({
   source,
   iconContainerStyle,
   iconStyle,
@@ -34,26 +34,25 @@ type IconProps = {
   onPress,
   resizeMode,
   touchableOpacityProps,
-}) => {
-  return (
-    <TouchableOpacity
-      disabled={disabled}
-      style={iconContainerStyle}
-      onPress={onPress}
-      {...touchableOpacityProps}>
-      <Image
-        source={source}
-        style={[
-          {
-            width: iconSize || 16,
-            height: iconSize || 16,
-            tintColor: tintColor,
-          },
-          iconStyle,
-        ]}
-        resizeMode={resizeMode || 'contain'}
-      />
-    </TouchableOpacity>
-  );
-};
-export default Icon
+}) => (
+  <TouchableOpacity
+    disabled={disabled}
+    style={iconContainerStyle}
+    onPress={onPress}
+    {...touchableOpacityProps}
+  >
+    <Image
+      source={source}
+      style={[
+        {
+          width: iconSize || 16,
+          height: iconSize || 16,
+          tintColor,
+        },
+        iconStyle,
+      ]}
+      resizeMode={resizeMode || 'contain'}
+    />
+  </TouchableOpacity>
+);
+export default Icon;

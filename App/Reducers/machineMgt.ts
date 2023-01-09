@@ -1,8 +1,8 @@
-import { CATEGORIES } from './reducersType'
+import { CATEGORIES } from './reducersType';
 
 const initialState = {
-  categoryList: []
-}
+  categoryList: [],
+};
 
 export default function user(state = initialState, action: { type: string, payload: any }) {
   switch (action.type) {
@@ -10,9 +10,9 @@ export default function user(state = initialState, action: { type: string, paylo
       return {
         ...state,
         categoryList: action.payload,
-      }
+      };
     }
     default:
-      return state
+      return state;
   }
 }

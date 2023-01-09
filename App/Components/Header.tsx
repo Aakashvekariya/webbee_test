@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import {
   GestureResponderEvent,
   Image,
@@ -14,45 +14,45 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-import { hamburgerIcon, leftArrowIcon } from "../Assets/icons";
-import colors from "../Constants/colors";
+import { hamburgerIcon, leftArrowIcon } from '../Assets/icons';
+import colors from '../Constants/colors';
 
 const styles = StyleSheet.create({
   rightCompContainerStyle: {
-    height: "100%",
+    height: '100%',
     width: 60,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerSubtitleStyle: {
-    width: "100%",
+    width: '100%',
   },
   headerTitleStyle: {
-    width: "100%",
+    width: '100%',
     color: colors.white,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   leftCompContainerStyle: {
-    height: "100%",
+    height: '100%',
     width: 60,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerContainer: {
     height: 45,
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   backButtonStyle: {
     width: 60,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   backDropStyle: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 40,
     width: 35,
     height: 35,
@@ -60,16 +60,16 @@ const styles = StyleSheet.create({
   backIconStyle: {
     height: 20,
     width: 20,
-    resizeMode: "contain",
+    resizeMode: 'contain',
   },
   leftSpace: {
     width: 60,
-    height: "100%",
+    height: '100%',
   },
   textContainerStyle: {
     flex: 1,
-    height: "100%",
-    justifyContent: "center",
+    height: '100%',
+    justifyContent: 'center',
   },
 });
 
@@ -82,7 +82,7 @@ type HeaderProps = {
   onBackPress?: ((event: GestureResponderEvent) => void) | undefined;
   backButtonStyle?: ViewStyle;
   backIconStyle?: ImageStyle;
-  headerAlign?: "auto" | "left" | "right" | "center" | "justify" | undefined;
+  headerAlign?: 'auto' | 'left' | 'right' | 'center' | 'justify' | undefined;
   RightComp?: React.ComponentType | React.ElementType | null | undefined;
   rightCompContainerStyle?: ViewStyle;
   LeftComp?: React.ComponentType | React.ElementType | null | undefined;
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
     >
       {!noStatusBar && (
         <StatusBar
-          barStyle={statusbarStyle || "dark-content"}
+          barStyle={statusbarStyle || 'dark-content'}
           backgroundColor={statusbarColor || headerColor || colors.primary}
         />
       )}
@@ -172,7 +172,7 @@ const Header: React.FC<HeaderProps> = ({
           numberOfLines={1}
           style={[
             styles.headerTitleStyle,
-            { textAlign: headerAlign || "center" },
+            { textAlign: headerAlign || 'center' },
             headerTitleStyle,
           ]}
         >
@@ -183,7 +183,7 @@ const Header: React.FC<HeaderProps> = ({
             style={[
               styles.headerSubtitleStyle,
               {
-                textAlign: headerAlign || "center",
+                textAlign: headerAlign || 'center',
               },
               headerSubtitleStyle,
             ]}

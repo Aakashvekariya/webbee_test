@@ -1,22 +1,21 @@
-import { StyleSheet } from 'react-native'
-import colors from '../../Constants/colors'
-import fontSize from '../../Constants/fontSize'
-
+import { StyleSheet } from 'react-native';
+import colors from '../../Constants/colors';
+import fontSize from '../../Constants/fontSize';
 
 export const typography = {
   dark: StyleSheet.create({
     typo1: {
-      fontSize:fontSize.f12,
+      fontSize: fontSize.f12,
       color: colors.white,
     },
   }),
   light: StyleSheet.create({
     typo1: {
-      fontSize:fontSize.f12,
+      fontSize: fontSize.f12,
       color: colors.black,
     },
   }),
-}
+};
 
 export const uiStyle = StyleSheet.create({
   btnRounded: {
@@ -27,7 +26,7 @@ export const uiStyle = StyleSheet.create({
     borderRadius: 10000,
     overflow: 'hidden',
   },
-})
+});
 
 export const commonUI = {
   btnSubmit: StyleSheet.create({
@@ -82,20 +81,20 @@ export const commonUI = {
       flexDirection: 'row',
       alignSelf: 'flex-end',
     },
-    rowMt5:{ flexDirection: "row", marginTop: 5 }
+    rowMt5: { flexDirection: 'row', marginTop: 5 },
   }),
   image: StyleSheet.create({
-    imageStyle:{
-      tintColor:colors.white
-    }
+    imageStyle: {
+      tintColor: colors.white,
+    },
   }),
   height: StyleSheet.create({
     height10: {
       height: 10,
     },
-    mt10:{
-      marginTop:10
-    }
+    mt10: {
+      marginTop: 10,
+    },
   }),
   modal: StyleSheet.create({
     containerStyle: {
@@ -103,7 +102,7 @@ export const commonUI = {
       justifyContent: 'flex-end',
     },
   }),
-}
+};
 export const commonColorUi = {
   backgroundColor: StyleSheet.create({
     white: {
@@ -124,7 +123,7 @@ export const commonColorUi = {
       color: colors.black,
     },
   }),
-}
+};
 export const themeUi = {
   dark: {
     ...commonUI,
@@ -138,7 +137,7 @@ export const themeUi = {
       titleStyle: { ...commonUI.btnSubmit.titleStyle, color: 'red' },
     },
   },
-}
+};
 
 // rightIconContainerStyle,
 // rightIconStyle,

@@ -1,2 +1,2 @@
-const CATEGORIES = 'CATEGORIES'
-export { CATEGORIES }
+const CATEGORIES = 'CATEGORIES';
+export { CATEGORIES };

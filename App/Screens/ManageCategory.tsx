@@ -1,15 +1,14 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useRef, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   SafeAreaView,
   Text,
   FlatList,
-  Dimensions,
   Platform,
   KeyboardAvoidingView,
-} from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addCategory,
   addNewField,
@@ -19,22 +18,21 @@ import {
   removeCategory,
   removeField,
   setTitle,
-} from "../Actions";
-import { addIcon } from "../Assets/icons";
-import ActionSheet from "../Components/ActionSheet";
-import Header from "../Components/Header";
-import Icon from "../Components/Icon";
-import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
-import colors from "../Constants/colors";
-import { fieldTypes } from "../Constants/env";
-import { gWindowWidth } from "../Constants/fontSize";
-import { CATEGORIES } from "../Reducers/reducersType";
-import FieldAddComp from "./FieldAddComp";
+} from '../Actions';
+import { addIcon } from '../Assets/icons';
+import ActionSheet from '../Components/ActionSheet';
+import Header from '../Components/Header';
+import Icon from '../Components/Icon';
+import colors from '../Constants/colors';
+import { fieldTypes } from '../Constants/env';
+import { gWindowWidth } from '../Constants/fontSize';
+import { CATEGORIES } from '../Reducers/reducersType';
+import FieldAddComp from './FieldAddComp';
 
 type OwnProps = {};
-const ManageCategory = (props: OwnProps) => {
+function ManageCategory(props: OwnProps) {
   const categoryListRD = useSelector(
-    (state: { machineMgt: any }) => state.machineMgt.categoryList
+    (state: { machineMgt: any }) => state.machineMgt.categoryList,
   );
 
   const dispatch: any = useDispatch();
@@ -81,15 +79,15 @@ const ManageCategory = (props: OwnProps) => {
     setIsSelectType(false);
     if (selectedCategoryFieldRef.current.fieldIndex === -1) {
       dispatch(
-        addNewField(selectedCategoryFieldRef.current.categoryIndex, type)
+        addNewField(selectedCategoryFieldRef.current.categoryIndex, type),
       );
     }
     dispatch(
       onChangeDataType(
         selectedCategoryFieldRef.current.categoryIndex,
         selectedCategoryFieldRef.current.fieldIndex,
-        type
-      )
+        type,
+      ),
     );
   };
 
@@ -119,7 +117,7 @@ const ManageCategory = (props: OwnProps) => {
   };
   const onChangeCategoryName = (
     categoryIndex: number,
-    categoryName: string
+    categoryName: string,
   ) => {
     dispatch(changeCategoryName(categoryIndex, categoryName));
   };
@@ -127,7 +125,7 @@ const ManageCategory = (props: OwnProps) => {
   const onChangeFieldName = (
     categoryIndex: number,
     fieldIndex: number,
-    fieldName: string
+    fieldName: string,
   ) => {
     dispatch(changeFieldName(categoryIndex, fieldIndex, fieldName));
   };
@@ -141,7 +139,7 @@ const ManageCategory = (props: OwnProps) => {
       onPress: () => {};
     }[] = titleData;
     tempTitleData = tempTitleData.map((item) => {
-      if (item.fieldName !== "") {
+      if (item.fieldName !== '') {
         return {
           title: item.fieldName,
           onPress: () => onSetTitle(item.fieldName),
@@ -157,45 +155,37 @@ const ManageCategory = (props: OwnProps) => {
   };
   const onSetTitle = (titleName: string) => {
     dispatch(
-      setTitle(selectedCategoryFieldRef.current.categoryIndex, titleName)
+      setTitle(selectedCategoryFieldRef.current.categoryIndex, titleName),
     );
     setIsSelectTitle(false);
   };
-  const RightComp = () => (
-    <Icon
-      source={addIcon}
-      onPress={onAddNewCategory}
-      iconStyle={{ tintColor: colors.white }}
-    />
-  );
-  const onRenderItem = ({ item, index }) => {
+  function RightComp() {
     return (
-      <View
-        style={{
-          width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth,
-        }}
-      >
-        <FieldAddComp
-          onAddNewField={() => onAddNewField(index)}
-          onRemoveField={(fieldIndex: number) =>
-            onRemoveField(index, fieldIndex)
-          }
-          onSetTitle={(titleData: []) => onSetTitleOpener(index, titleData)}
-          onRemoveCategory={() => onRemoveCategory(index)}
-          onChangeType={(fieldIndex: number) =>
-            onChangeTypeOpener(index, fieldIndex)
-          }
-          onChangeCategoryName={(name: string) =>
-            onChangeCategoryName(index, name)
-          }
-          onChangeFieldName={(name: string, fieldIndex: number) =>
-            onChangeFieldName(index, fieldIndex, name)
-          }
-          data={item}
-        />
-      </View>
+      <Icon
+        source={addIcon}
+        onPress={onAddNewCategory}
+        iconStyle={{ tintColor: colors.white }}
+      />
     );
-  };
+  }
+  const onRenderItem = ({ item, index }) => (
+    <View
+      style={{
+        width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth,
+      }}
+    >
+      <FieldAddComp
+        onAddNewField={() => onAddNewField(index)}
+        onRemoveField={(fieldIndex: number) => onRemoveField(index, fieldIndex)}
+        onSetTitle={(titleData: []) => onSetTitleOpener(index, titleData)}
+        onRemoveCategory={() => onRemoveCategory(index)}
+        onChangeType={(fieldIndex: number) => onChangeTypeOpener(index, fieldIndex)}
+        onChangeCategoryName={(name: string) => onChangeCategoryName(index, name)}
+        onChangeFieldName={(name: string, fieldIndex: number) => onChangeFieldName(index, fieldIndex, name)}
+        data={item}
+      />
+    </View>
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
@@ -204,7 +194,7 @@ const ManageCategory = (props: OwnProps) => {
       <View style={{ flex: 1, marginTop: 10 }}>
         <KeyboardAvoidingView
           keyboardVerticalOffset={100}
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
           <FlatList
             data={categoryList}
@@ -212,7 +202,7 @@ const ManageCategory = (props: OwnProps) => {
             keyExtractor={(_, index) => String(index)}
             renderItem={onRenderItem}
             ListEmptyComponent={() => (
-              <Text style={{ textAlign: "center" }}>
+              <Text style={{ textAlign: 'center' }}>
                 No Categories Available
               </Text>
             )}
@@ -235,6 +225,6 @@ const ManageCategory = (props: OwnProps) => {
       />
     </View>
   );
-};
+}
 
 export default ManageCategory;
