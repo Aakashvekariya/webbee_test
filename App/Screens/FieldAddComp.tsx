@@ -1,12 +1,32 @@
+import { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { closeIcon } from "../Assets/icons";
+import { commonUI } from "../Assets/styles/mystyle";
 import Button from "../Components/Button";
 import Icon from "../Components/Icon";
 import TextInputBox from "../Components/TextInputBox";
 import colors from "../Constants/colors";
 import fontSize from "../Constants/fontSize";
 
-const FieldAddComp = ({
+type FieldAddCompProps = {
+  onAddNewField: () => void;
+  onRemoveField: (index: number) => void;
+  data: {
+    categoryName: string;
+    titleField: string;
+    fields: {
+      fieldName: string;
+      type: string;
+    }[];
+  };
+  onSetTitle: (data: any) => void;
+  onRemoveCategory: () => void;
+  onChangeType: (index: number) => void;
+  onChangeCategoryName: (text: string) => void;
+  onChangeFieldName: (text: string, index: number) => void;
+};
+
+const FieldAddComp: FC<FieldAddCompProps> = ({
   onAddNewField,
   onRemoveField,
   data,
@@ -15,7 +35,7 @@ const FieldAddComp = ({
   onChangeType,
   onChangeCategoryName,
   onChangeFieldName,
-}) => {
+}: FieldAddCompProps) => {
   return (
     <View style={styles.categoryContainer}>
       <Text style={styles.heading}>
@@ -29,7 +49,7 @@ const FieldAddComp = ({
       />
       {data.fields.map((item, index) => (
         <View key={String(index)} style={styles.fieldContainer}>
-          <View style={{ flex: 1 }}>
+          <View style={commonUI.container.flex1}>
             <TextInputBox
               placeholder="Field"
               title="Field Name"
@@ -37,7 +57,7 @@ const FieldAddComp = ({
               onChangeText={(text) => onChangeFieldName(text, index)}
             />
           </View>
-          <View style={{ flexDirection: "row", alignSelf: "flex-end" }}>
+          <View style={commonUI.container.rowAlignSelfEnd}>
             <TouchableOpacity
               style={styles.buttonWrapper}
               onPress={() => onChangeType(index)}
@@ -47,9 +67,7 @@ const FieldAddComp = ({
             <Icon
               source={closeIcon}
               iconContainerStyle={styles.iconContainer}
-              iconStyle={{
-                tintColor: colors.white,
-              }}
+              iconStyle={commonUI.image.imageStyle}
               onPress={() => onRemoveField(index)}
             />
           </View>
@@ -59,12 +77,12 @@ const FieldAddComp = ({
         title={`Title Field: ${
           data.titleField !== "" ? data.titleField : "UNNAMED FIELD"
         }`}
-        contentContainerStyle={{ marginTop: 10 }}
+        contentContainerStyle={commonUI.height.mt10}
         titleStyle={{ textTransform: "uppercase" }}
         onFullPress={() => onSetTitle(data.fields)}
       />
-      <View style={{ flexDirection: "row", marginTop: 5 }}>
-        <View style={{ flex: 1 }}>
+      <View style={commonUI.container.rowMt5}>
+        <View style={commonUI.container.flex1}>
           <Button
             title="Add Field"
             contentContainerStyle={{ backgroundColor: colors.green }}
@@ -72,10 +90,10 @@ const FieldAddComp = ({
           />
         </View>
         <View style={{ marginHorizontal: 5 }} />
-        <View style={{ flex: 1 }}>
+        <View style={commonUI.container.flex1}>
           <Button
             title="Remove"
-            contentContainerStyle={{ backgroundColor: colors.red }}
+            contentContainerStyle={styles.btnColor}
             onFullPress={onRemoveCategory}
           />
         </View>
@@ -121,4 +139,5 @@ const styles = StyleSheet.create({
     fontSize: fontSize.f20,
     fontWeight: "bold",
   },
+  btnColor: { backgroundColor: colors.red },
 });

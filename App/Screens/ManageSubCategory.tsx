@@ -1,6 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, Text, FlatList, Platform } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  FlatList,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSubCategory,
@@ -76,18 +83,21 @@ const ManageSubCategory = (props: OwnProps) => {
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title={categoryName} RightComp={RightComp} />
       <View style={{ marginTop: 10 }} />
-
-      <FlatList
-        data={categoryList.subCategory}
-        renderItem={onRenderItem}
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyExtractor={(_, index) => String(index)}
-        ListEmptyComponent={() => (
-          <Text style={{ textAlign: "center" }}>No Items Available</Text>
-        )}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        numColumns={Platform.isPad ? 2 : 1}
-      />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+      >
+        <FlatList
+          data={categoryList.subCategory}
+          renderItem={onRenderItem}
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyExtractor={(_, index) => String(index)}
+          ListEmptyComponent={() => (
+            <Text style={{ textAlign: "center" }}>No Items Available</Text>
+          )}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          numColumns={Platform.isPad ? 2 : 1}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 };

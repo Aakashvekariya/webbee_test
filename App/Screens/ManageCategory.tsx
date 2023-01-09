@@ -7,6 +7,7 @@ import {
   FlatList,
   Dimensions,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,6 +24,7 @@ import { addIcon } from "../Assets/icons";
 import ActionSheet from "../Components/ActionSheet";
 import Header from "../Components/Header";
 import Icon from "../Components/Icon";
+import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
 import colors from "../Constants/colors";
 import { fieldTypes } from "../Constants/env";
 import { gWindowWidth } from "../Constants/fontSize";
@@ -194,19 +196,24 @@ const ManageCategory = (props: OwnProps) => {
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title="Manage Categories" RightComp={RightComp} />
       <View style={{ flex: 1, marginTop: 10 }}>
-        {/* <KeyboardAvoidScrollView> */}
-        <FlatList
-          data={categoryList}
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={onRenderItem}
-          ListEmptyComponent={() => (
-            <Text style={{ textAlign: "center" }}>No Categories Available</Text>
-          )}
-          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-          numColumns={Platform.isPad ? 2 : 1}
-        />
-        {/* </KeyboardAvoidScrollView> */}
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={100}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
+          <FlatList
+            data={categoryList}
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyExtractor={(_, index) => String(index)}
+            renderItem={onRenderItem}
+            ListEmptyComponent={() => (
+              <Text style={{ textAlign: "center" }}>
+                No Categories Available
+              </Text>
+            )}
+            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            numColumns={Platform.isPad ? 2 : 1}
+          />
+        </KeyboardAvoidingView>
       </View>
       <ActionSheet
         data={fieldTypeData}

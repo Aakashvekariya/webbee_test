@@ -78,11 +78,24 @@ export const commonUI = {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    rowAlignSelfEnd: {
+      flexDirection: 'row',
+      alignSelf: 'flex-end',
+    },
+    rowMt5:{ flexDirection: "row", marginTop: 5 }
+  }),
+  image: StyleSheet.create({
+    imageStyle:{
+      tintColor:colors.white
+    }
   }),
   height: StyleSheet.create({
     height10: {
       height: 10,
     },
+    mt10:{
+      marginTop:10
+    }
   }),
   modal: StyleSheet.create({
     containerStyle: {

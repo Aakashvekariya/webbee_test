@@ -8,6 +8,7 @@ import {
   FlatList,
   ScrollView,
   Platform,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -18,6 +19,7 @@ import {
 import { addIcon } from "../Assets/icons";
 import Button from "../Components/Button";
 import Header from "../Components/Header";
+import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
 import colors from "../Constants/colors";
 import fontSize, { gWindowWidth } from "../Constants/fontSize";
 import { CATEGORIES } from "../Reducers/reducersType";
@@ -89,7 +91,9 @@ const Home = (props: OwnProps) => {
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title="Dashboard" />
       <View style={{ flex: 1, marginTop: 15 }}>
-        <ScrollView>
+        <KeyboardAvoidScrollView
+        // keyboardAvoidingViewProp={{ keyboardVerticalOffset: 150 }}
+        >
           {categoryList.map((item, index) => (
             <View key={String(index)}>
               <View style={styles.categoryContainer}>
@@ -102,7 +106,6 @@ const Home = (props: OwnProps) => {
                   onFullPress={() => onAddNewSubCategory(item, index)}
                 />
               </View>
-
               <FlatList
                 data={categoryList[index].subCategory}
                 renderItem={(data) =>
@@ -112,6 +115,7 @@ const Home = (props: OwnProps) => {
                     modalList: categoryList[index],
                   })
                 }
+                scrollEnabled={false}
                 contentContainerStyle={{ flexGrow: 1 }}
                 keyExtractor={(_, index) => String(index)}
                 ListEmptyComponent={() => (
@@ -124,7 +128,7 @@ const Home = (props: OwnProps) => {
               />
             </View>
           ))}
-        </ScrollView>
+        </KeyboardAvoidScrollView>
       </View>
     </View>
   );
