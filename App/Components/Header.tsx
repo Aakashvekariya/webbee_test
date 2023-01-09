@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   headerTitleStyle: {
     width: "100%",
     color: colors.white,
+    fontWeight: "bold",
   },
   leftCompContainerStyle: {
     height: "100%",
@@ -159,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({
           <Image
             style={[
               styles.backIconStyle,
-              { tintColor: colors.black },
+              { tintColor: colors.white },
               backIconStyle,
             ]}
             source={hamburgerIcon || leftArrowIcon}

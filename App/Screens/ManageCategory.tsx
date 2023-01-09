@@ -18,14 +18,14 @@ import { addIcon, watchIcon } from "../Assets/icons";
 import ActionSheet from "../Components/ActionSheet";
 import Header from "../Components/Header";
 import Icon from "../Components/Icon";
+import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
 import colors from "../Constants/colors";
 import { fieldTypes } from "../Constants/env";
-import RouteStackParamsList from "../Navigations/RouteStackParamsList";
 import { CATEGORIES } from "../Reducers/reducersType";
 import FieldAddComp from "./FieldAddComp";
 
 type OwnProps = {};
-const AddNewCategory = (props: OwnProps) => {
+const ManageCategory = (props: OwnProps) => {
   const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
 
   const dispatch: any = useDispatch();
@@ -63,13 +63,15 @@ const AddNewCategory = (props: OwnProps) => {
   }, [categoryListRD]);
 
   const fhLoadCategory = async () => {
-    await dispatch(getCategories());
     await AsyncStorage.setItem(CATEGORIES, JSON.stringify(categoryListRD));
     setCategoryList(categoryListRD);
   };
 
   const onSelectDataType = (type: string) => {
     setIsSelectType(false);
+    if (selectedCategoryField.fieldIndex === -1) {
+      dispatch(addNewField(selectedCategoryField.categoryIndex, type));
+    }
     dispatch(
       onChangeDataType(
         selectedCategoryField.categoryIndex,
@@ -86,7 +88,13 @@ const AddNewCategory = (props: OwnProps) => {
     dispatch(removeCategory(index));
   };
   const onAddNewField = (index: number) => {
-    dispatch(addNewField(index));
+    setSelectedCategoryField({
+      categoryIndex: index,
+      fieldIndex: -1,
+    });
+    setTimeout(() => {
+      setIsSelectType(true);
+    }, 400);
   };
   const onRemoveField = (categoryIndex: number, fieldIndex: number) => {
     dispatch(removeField(categoryIndex, fieldIndex));
@@ -141,7 +149,13 @@ const AddNewCategory = (props: OwnProps) => {
     dispatch(setTitle(selectedCategoryField.categoryIndex, titleName));
     setIsSelectTitle(false);
   };
-  const RightComp = () => <Icon source={addIcon} onPress={onAddNewCategory} />;
+  const RightComp = () => (
+    <Icon
+      source={addIcon}
+      onPress={onAddNewCategory}
+      iconStyle={{ tintColor: colors.white }}
+    />
+  );
   const onRenderItem = ({ item, index }) => {
     return (
       <FieldAddComp
@@ -167,16 +181,20 @@ const AddNewCategory = (props: OwnProps) => {
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <SafeAreaView style={{ backgroundColor: colors.primary }} />
       <Header title="Manage Categories" RightComp={RightComp} />
-
-      <FlatList
-        data={categoryList}
-        renderItem={onRenderItem}
-        ListEmptyComponent={() => (
-          <Text style={{ textAlign: "center" }}>No Categories Available</Text>
-        )}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-      />
-
+      <View style={{ flex: 1, marginTop: 10 }}>
+        {/* <KeyboardAvoidScrollView> */}
+        <FlatList
+          data={categoryList}
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyExtractor={(_, index) => String(index)}
+          renderItem={onRenderItem}
+          ListEmptyComponent={() => (
+            <Text style={{ textAlign: "center" }}>No Categories Available</Text>
+          )}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        />
+        {/* </KeyboardAvoidScrollView> */}
+      </View>
       <ActionSheet
         data={fieldTypeData}
         isVisible={isSelectType}
@@ -193,4 +211,4 @@ const AddNewCategory = (props: OwnProps) => {
   );
 };
 
-export default AddNewCategory;
+export default ManageCategory;

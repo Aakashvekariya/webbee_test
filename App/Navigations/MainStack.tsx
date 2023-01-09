@@ -6,12 +6,20 @@ import ProductList from "../Screens/ProductList";
 import { useSelector } from "react-redux";
 import Loader from "../Components/Loader";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import AddNewCategory from "../Screens/AddNewCategory";
+import AddNewCategory from "../Screens/ManageCategory";
+import ManageCategory from "../Screens/ManageCategory";
+import ManageSubCategory from "../Screens/ManageSubCategory";
 
 const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
   const loading = useSelector((state: any) => state.activityIndicator);
+  const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
+  const [category, setCategory] = React.useState<[]>([]);
+  React.useEffect(() => {
+    setCategory([...categoryListRD]);
+  }, [categoryListRD]);
+
   return (
     <>
       <NavigationContainer>
@@ -31,10 +39,23 @@ const MainStack = () => {
             component={Home}
             options={{ headerShown: false }}
           />
+          {category.map((item, index) => (
+            <Drawer.Screen
+              key={String(index)}
+              name={String(index)}
+              component={ManageSubCategory}
+              initialParams={{ ...item, categoryIndex: index }}
+              options={{
+                headerShown: false,
+                title:
+                  item.categoryName === "" ? "New Category" : item.categoryName,
+              }}
+            />
+          ))}
           <Drawer.Screen
-            name="AddNewCategory"
-            component={AddNewCategory}
-            options={{ headerShown: false }}
+            name="ManageCategory"
+            component={ManageCategory}
+            options={{ headerShown: false, title: "Manage Categories" }}
           />
         </Drawer.Navigator>
       </NavigationContainer>

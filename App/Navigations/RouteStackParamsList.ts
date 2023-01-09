@@ -1,8 +1,7 @@
 type RouteStackParamsList = {
-    Home:undefined,
-    ProductList:{
-        from:string
-    }
+    Dashboard:undefined,
+    ManageCategory:undefined,
+    
 }
 
 export default RouteStackParamsList
