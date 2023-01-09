@@ -1,8 +1,6 @@
-import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
-import { closeIcon } from "../Assets/icons";
+import { StyleSheet, Switch, Text, View } from "react-native";
 import Button from "../Components/Button";
 import DateTimePickerComponent from "../Components/DateTimePickerComponent";
-import Icon from "../Components/Icon";
 import TextInputBox from "../Components/TextInputBox";
 import colors from "../Constants/colors";
 import { fieldTypes } from "../Constants/env";

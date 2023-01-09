@@ -4,7 +4,6 @@ import Button from "../Components/Button";
 import Icon from "../Components/Icon";
 import TextInputBox from "../Components/TextInputBox";
 import colors from "../Constants/colors";
-import { fieldTypes } from "../Constants/env";
 import fontSize from "../Constants/fontSize";
 
 const FieldAddComp = ({

@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -8,6 +7,7 @@ import {
   Text,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -19,16 +19,12 @@ import { addIcon } from "../Assets/icons";
 import Button from "../Components/Button";
 import Header from "../Components/Header";
 import colors from "../Constants/colors";
-import fontSize from "../Constants/fontSize";
-import RouteStackParamsList from "../Navigations/RouteStackParamsList";
+import fontSize, { gWindowWidth } from "../Constants/fontSize";
 import { CATEGORIES } from "../Reducers/reducersType";
 import SubFieldAddComp from "./SubFieldAddComp";
 
-type OwnProps = {
-  navigation: NativeStackNavigationProp<RouteStackParamsList>;
-};
+type OwnProps = {};
 const Home = (props: OwnProps) => {
-  const { navigation } = props;
   const dispatch: any = useDispatch();
   const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
   const [categoryList, setCategoryList] = useState<[]>([]);
@@ -75,7 +71,7 @@ const Home = (props: OwnProps) => {
 
   const onRenderItem = ({ item, index, categoryIndex, modalList }) => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
         <SubFieldAddComp
           onValueChange={(data: any, field: any) =>
             onValueChange(data, field, categoryIndex, index)
@@ -124,6 +120,7 @@ const Home = (props: OwnProps) => {
                   </Text>
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+                numColumns={Platform.isPad ? 2 : 1}
               />
             </View>
           ))}

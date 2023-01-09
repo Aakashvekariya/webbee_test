@@ -1,26 +1,31 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
-import { View, SafeAreaView, Text, FlatList } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  FlatList,
+  Dimensions,
+  Platform,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCategory,
   addNewField,
   changeCategoryName,
   changeFieldName,
-  getCategories,
   onChangeDataType,
   removeCategory,
   removeField,
   setTitle,
 } from "../Actions";
-import { addIcon, watchIcon } from "../Assets/icons";
+import { addIcon } from "../Assets/icons";
 import ActionSheet from "../Components/ActionSheet";
 import Header from "../Components/Header";
 import Icon from "../Components/Icon";
-import KeyboardAvoidScrollView from "../Components/KeyboardAvoidScrollView";
 import colors from "../Constants/colors";
 import { fieldTypes } from "../Constants/env";
+import { gWindowWidth } from "../Constants/fontSize";
 import { CATEGORIES } from "../Reducers/reducersType";
 import FieldAddComp from "./FieldAddComp";
 
@@ -157,22 +162,30 @@ const ManageCategory = (props: OwnProps) => {
   );
   const onRenderItem = ({ item, index }) => {
     return (
-      <FieldAddComp
-        onAddNewField={() => onAddNewField(index)}
-        onRemoveField={(fieldIndex: number) => onRemoveField(index, fieldIndex)}
-        onSetTitle={(titleData: []) => onSetTitleOpener(index, titleData)}
-        onRemoveCategory={() => onRemoveCategory(index)}
-        onChangeType={(fieldIndex: number) =>
-          onChangeTypeOpener(index, fieldIndex)
-        }
-        onChangeCategoryName={(name: string) =>
-          onChangeCategoryName(index, name)
-        }
-        onChangeFieldName={(name: string, fieldIndex: number) =>
-          onChangeFieldName(index, fieldIndex, name)
-        }
-        data={item}
-      />
+      <View
+        style={{
+          width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth,
+        }}
+      >
+        <FieldAddComp
+          onAddNewField={() => onAddNewField(index)}
+          onRemoveField={(fieldIndex: number) =>
+            onRemoveField(index, fieldIndex)
+          }
+          onSetTitle={(titleData: []) => onSetTitleOpener(index, titleData)}
+          onRemoveCategory={() => onRemoveCategory(index)}
+          onChangeType={(fieldIndex: number) =>
+            onChangeTypeOpener(index, fieldIndex)
+          }
+          onChangeCategoryName={(name: string) =>
+            onChangeCategoryName(index, name)
+          }
+          onChangeFieldName={(name: string, fieldIndex: number) =>
+            onChangeFieldName(index, fieldIndex, name)
+          }
+          data={item}
+        />
+      </View>
     );
   };
 
@@ -191,6 +204,7 @@ const ManageCategory = (props: OwnProps) => {
             <Text style={{ textAlign: "center" }}>No Categories Available</Text>
           )}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          numColumns={Platform.isPad ? 2 : 1}
         />
         {/* </KeyboardAvoidScrollView> */}
       </View>

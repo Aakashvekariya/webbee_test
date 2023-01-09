@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
-import { View, SafeAreaView, Text, FlatList } from "react-native";
+import { View, SafeAreaView, Text, FlatList, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSubCategory,
@@ -8,11 +8,10 @@ import {
   removeSubCategory,
 } from "../Actions";
 import { addIcon } from "../Assets/icons";
-import ActionSheet from "../Components/ActionSheet";
 import Header from "../Components/Header";
 import Icon from "../Components/Icon";
 import colors from "../Constants/colors";
-import { fieldTypes } from "../Constants/env";
+import { gWindowWidth } from "../Constants/fontSize";
 import { CATEGORIES } from "../Reducers/reducersType";
 import SubFieldAddComp from "./SubFieldAddComp";
 
@@ -21,7 +20,8 @@ const ManageSubCategory = (props: OwnProps) => {
   const { categoryIndex } = props.route.params;
 
   const categoryListRD = useSelector((state) => state.machineMgt.categoryList);
-  const categoryName = categoryListRD[categoryIndex].categoryName;
+  const categoryName =
+    categoryListRD[categoryIndex].categoryName || "New Category";
   const dispatch: any = useDispatch();
   const [categoryList, setCategoryList] = useState<[]>(categoryListRD);
 
@@ -58,7 +58,7 @@ const ManageSubCategory = (props: OwnProps) => {
   );
   const onRenderItem = ({ item, index }) => {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ width: Platform.isPad ? gWindowWidth / 2 : gWindowWidth }}>
         <SubFieldAddComp
           onValueChange={(data: any, field: any) =>
             onValueChange(data, field, index)
@@ -86,6 +86,7 @@ const ManageSubCategory = (props: OwnProps) => {
           <Text style={{ textAlign: "center" }}>No Items Available</Text>
         )}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        numColumns={Platform.isPad ? 2 : 1}
       />
     </View>
   );
