@@ -102,7 +102,7 @@ function Home() {
           {categoryList.map((item: { categoryName: string }, index) => (
             <View key={String(index)}>
               <View style={styles.categoryContainer}>
-                <Text style={styles.categoryNameText}>{item.categoryName}</Text>
+                <Text style={styles.categoryNameText}>{item.categoryName===""?"New Category":item.categoryName}</Text>
                 <Button
                   title="Add New Item"
                   height={30}
