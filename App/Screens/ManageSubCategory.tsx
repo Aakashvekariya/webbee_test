@@ -34,7 +34,7 @@ function ManageSubCategory(props: OwnProps) {
   const categoryListRD = useSelector(
     (state: { machineMgt: any }) => state.machineMgt.categoryList,
   );
-  const categoryName = categoryListRD[categoryIndex].categoryName || 'New Category';
+  const categoryName = categoryListRD[categoryIndex]?.categoryName || 'New Category';
   const dispatch: any = useDispatch();
   const [categoryList, setCategoryList] = useState<{
     subCategory: [];
